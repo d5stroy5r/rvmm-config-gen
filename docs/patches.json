@@ -1094,7 +1094,7 @@
     },
     {
         "name": "Remove root detection",
-        "description": "Removes the check for root permissions.",
+        "description": "Removes the check for root permissions and unlocked bootloader.",
         "use": true,
         "dependencies": [],
         "compatiblePackages": {
@@ -1324,7 +1324,9 @@
         "name": "Hide navigation buttons",
         "description": "Hides navigation bar buttons, such as the Reels and Create button.",
         "use": false,
-        "dependencies": [],
+        "dependencies": [
+            "BytecodePatch"
+        ],
         "compatiblePackages": {
             "com.instagram.android": null
         },
@@ -1354,6 +1356,52 @@
         "description": "Hides Stories from the main page, by removing the buttons.",
         "use": false,
         "dependencies": [],
+        "compatiblePackages": {
+            "com.instagram.android": null
+        },
+        "options": []
+    },
+    {
+        "name": "Enable developer menu",
+        "description": "Enables the developer menu, which can be found at the bottom of settings menu with name 'Internal Settings'.\n\nIt is recommended to use this patch with an alpha/beta Instagram release. Patching a stable release works, but the developer menu shows the developer flags as numbers and does not show a human readable description.",
+        "use": false,
+        "dependencies": [],
+        "compatiblePackages": {
+            "com.instagram.android": null
+        },
+        "options": []
+    },
+    {
+        "name": "Open links externally",
+        "description": "Changes links to always open in your external browser, instead of the in-app browser.",
+        "use": false,
+        "dependencies": [
+            "BytecodePatch"
+        ],
+        "compatiblePackages": {
+            "com.instagram.android": null
+        },
+        "options": []
+    },
+    {
+        "name": "Change link sharing domain",
+        "description": "Replaces the domain name of shared links.",
+        "use": false,
+        "dependencies": [
+            "BytecodePatch"
+        ],
+        "compatiblePackages": {
+            "com.instagram.android": null
+        },
+        "options": []
+    },
+    {
+        "name": "Sanitize sharing links",
+        "description": "Removes the tracking query parameters from shared links.",
+        "use": true,
+        "dependencies": [
+            "BytecodePatch"
+        ],
         "compatiblePackages": {
             "com.instagram.android": null
         },
@@ -1546,12 +1594,49 @@
         "options": []
     },
     {
+        "name": "Custom branding",
+        "description": "Adds options to change the app icon and app name. Branding cannot be changed for mounted (root) installations.",
+        "use": true,
+        "dependencies": [
+            "BytecodePatch",
+            "ResourcePatch",
+            "BytecodePatch"
+        ],
+        "compatiblePackages": {
+            "com.google.android.apps.youtube.music": [
+                "7.29.52",
+                "8.10.52"
+            ]
+        },
+        "options": [
+            {
+                "key": "customName",
+                "title": "App name",
+                "description": "Custom app name.",
+                "required": false,
+                "type": "kotlin.String",
+                "default": null,
+                "values": null
+            },
+            {
+                "key": "customIcon",
+                "title": "Custom icon",
+                "description": "Folder with images to use as a custom icon.\n\nThe folder must contain one or more of the following folders, depending on the DPI of the device:\n- mipmap-mdpi\n- mipmap-hdpi\n- mipmap-xhdpi\n- mipmap-xxhdpi\n- mipmap-xxxhdpi\n\nEach of the folders must contain all of the following files:\nrevanced_adaptive_background_custom.png\nrevanced_adaptive_foreground_custom.png\n\nOptionally, the path can contain a 'drawable' folder with the monochrome icon file:\nrevanced_adaptive_monochrome_custom.xml",
+                "required": false,
+                "type": "kotlin.String",
+                "default": null,
+                "values": null
+            }
+        ]
+    },
+    {
         "name": "Hide cast button",
         "description": "Adds an option to hide the cast button.",
         "use": true,
         "dependencies": [
             "BytecodePatch",
             "BytecodePatch",
+            "ResourcePatch",
             "ResourcePatch"
         ],
         "compatiblePackages": {
@@ -1749,7 +1834,7 @@
     },
     {
         "name": "Sanitize sharing links",
-        "description": "Adds an option to remove the tracking query parameter from shared links.",
+        "description": "Removes the tracking query parameters from shared links.",
         "use": true,
         "dependencies": [
             "BytecodePatch",
@@ -1774,6 +1859,24 @@
             "ResourcePatch",
             "ResourcePatch",
             "BytecodePatch"
+        ],
+        "compatiblePackages": {
+            "com.google.android.apps.youtube.music": [
+                "7.29.52",
+                "8.10.52"
+            ]
+        },
+        "options": []
+    },
+    {
+        "name": "Force original audio",
+        "description": "Adds an option to always use the original audio track.",
+        "use": true,
+        "dependencies": [
+            "BytecodePatch",
+            "BytecodePatch",
+            "ResourcePatch",
+            "ResourcePatch"
         ],
         "compatiblePackages": {
             "com.google.android.apps.youtube.music": [
@@ -1853,7 +1956,7 @@
     },
     {
         "name": "Remove root detection",
-        "description": "Removes the check for root permissions.",
+        "description": "Removes the check for root permissions and unlocked bootloader.",
         "use": true,
         "dependencies": [],
         "compatiblePackages": {
@@ -2461,7 +2564,7 @@
     },
     {
         "name": "Sanitize sharing links",
-        "description": "Removes (tracking) query parameters from the URLs when sharing links.",
+        "description": "Removes the tracking query parameters from shared links.",
         "use": true,
         "dependencies": [],
         "compatiblePackages": {
@@ -2557,8 +2660,8 @@
     },
     {
         "name": "Hide Create button",
-        "description": "Hides the \"Create\" button in the navigation bar.",
-        "use": true,
+        "description": "Hides the \"Create\" button in the navigation bar. The latest app targets do not need this patch.",
+        "use": false,
         "dependencies": [
             "BytecodePatch"
         ],
@@ -2657,7 +2760,7 @@
     },
     {
         "name": "Sanitize sharing links",
-        "description": "Removes the tracking query parameters from links before they are shared.",
+        "description": "Removes the tracking query parameters from shared links.",
         "use": true,
         "dependencies": [
             "BytecodePatch"
@@ -3128,9 +3231,8 @@
         "dependencies": [],
         "compatiblePackages": {
             "com.twitter.android": [
-                "10.86.0-release.0",
                 "10.60.0-release.0",
-                "10.48.0-release.0"
+                "10.86.0-release.0"
             ]
         },
         "options": []
@@ -3144,9 +3246,8 @@
         ],
         "compatiblePackages": {
             "com.twitter.android": [
-                "10.86.0-release.0",
                 "10.60.0-release.0",
-                "10.48.0-release.0"
+                "10.86.0-release.0"
             ]
         },
         "options": []
@@ -3160,16 +3261,15 @@
         ],
         "compatiblePackages": {
             "com.twitter.android": [
-                "10.86.0-release.0",
                 "10.60.0-release.0",
-                "10.48.0-release.0"
+                "10.86.0-release.0"
             ]
         },
         "options": []
     },
     {
         "name": "Change link sharing domain",
-        "description": "Replaces the domain name of Twitter links when sharing them.",
+        "description": "Replaces the domain name of shared links.",
         "use": true,
         "dependencies": [
             "ResourcePatch",
@@ -3177,9 +3277,8 @@
         ],
         "compatiblePackages": {
             "com.twitter.android": [
-                "10.86.0-release.0",
                 "10.60.0-release.0",
-                "10.48.0-release.0"
+                "10.86.0-release.0"
             ]
         },
         "options": [
@@ -3195,29 +3294,14 @@
         ]
     },
     {
-        "name": "Open links with app chooser",
-        "description": "Instead of opening links directly, open them with an app chooser. As a result you can select a browser to open the link with.",
-        "use": false,
-        "dependencies": [
-            "BytecodePatch"
-        ],
-        "compatiblePackages": {
-            "com.twitter.android": [
-                "10.48.0-release.0"
-            ]
-        },
-        "options": []
-    },
-    {
         "name": "Sanitize sharing links",
-        "description": "Removes the tracking query parameters from links before they are shared.",
+        "description": "Removes the tracking query parameters from shared links.",
         "use": true,
         "dependencies": [],
         "compatiblePackages": {
             "com.twitter.android": [
-                "10.86.0-release.0",
                 "10.60.0-release.0",
-                "10.48.0-release.0"
+                "10.86.0-release.0"
             ]
         },
         "options": []
@@ -3234,6 +3318,80 @@
             ]
         },
         "options": []
+    },
+    {
+        "name": "Hide navigation buttons",
+        "description": "Permanently hides navigation bar buttons, such as Explore and Marketplace.",
+        "use": false,
+        "dependencies": [],
+        "compatiblePackages": {
+            "com.viber.voip": null
+        },
+        "options": [
+            {
+                "key": "hideChats",
+                "title": "Hide Chats",
+                "description": "Permanently hides the Chats button.",
+                "required": false,
+                "type": "kotlin.Boolean",
+                "default": false,
+                "values": null
+            },
+            {
+                "key": "hideCalls",
+                "title": "Hide Calls",
+                "description": "Permanently hides the Calls button.",
+                "required": false,
+                "type": "kotlin.Boolean",
+                "default": false,
+                "values": null
+            },
+            {
+                "key": "hideExplore",
+                "title": "Hide Explore",
+                "description": "Permanently hides the Explore button.",
+                "required": false,
+                "type": "kotlin.Boolean",
+                "default": true,
+                "values": null
+            },
+            {
+                "key": "hideMore",
+                "title": "Hide More",
+                "description": "Permanently hides the More button.",
+                "required": false,
+                "type": "kotlin.Boolean",
+                "default": false,
+                "values": null
+            },
+            {
+                "key": "hidePay",
+                "title": "Hide Pay",
+                "description": "Permanently hides the Pay button.",
+                "required": false,
+                "type": "kotlin.Boolean",
+                "default": true,
+                "values": null
+            },
+            {
+                "key": "hideCamera",
+                "title": "Hide Camera",
+                "description": "Permanently hides the Camera button.",
+                "required": false,
+                "type": "kotlin.Boolean",
+                "default": true,
+                "values": null
+            },
+            {
+                "key": "hideMarketplace",
+                "title": "Hide Marketplace",
+                "description": "Permanently hides the Marketplace button.",
+                "required": false,
+                "type": "kotlin.Boolean",
+                "default": true,
+                "values": null
+            }
+        ]
     },
     {
         "name": "Promo code unlock",
@@ -3434,10 +3592,12 @@
     },
     {
         "name": "Custom branding",
-        "description": "Applies a custom app name and icon. Defaults to \"YouTube ReVanced\" and the ReVanced logo.",
-        "use": false,
+        "description": "Adds options to change the app icon and app name. Branding cannot be changed for mounted (root) installations.",
+        "use": true,
         "dependencies": [
-            "ResourcePatch"
+            "BytecodePatch",
+            "ResourcePatch",
+            "BytecodePatch"
         ],
         "compatiblePackages": {
             "com.google.android.youtube": [
@@ -3449,29 +3609,22 @@
         },
         "options": [
             {
-                "key": "appName",
+                "key": "customName",
                 "title": "App name",
-                "description": "The name of the app.",
+                "description": "Custom app name.",
                 "required": false,
                 "type": "kotlin.String",
-                "default": "YouTube ReVanced",
-                "values": {
-                    "YouTube ReVanced": "YouTube ReVanced",
-                    "YT ReVanced": "YT ReVanced",
-                    "YT": "YT",
-                    "YouTube": "YouTube"
-                }
+                "default": null,
+                "values": null
             },
             {
-                "key": "iconPath",
-                "title": "App icon",
-                "description": "The icon to apply to the app.\n\nIf a path to a folder is provided, the folder must contain the following folders:\n\n- mipmap-xxxhdpi\n- mipmap-xxhdpi\n- mipmap-xhdpi\n- mipmap-hdpi\n- mipmap-mdpi\n\nEach of these folders must contain the following files:\n\n- adaptiveproduct_youtube_background_color_108.png\n- adaptiveproduct_youtube_foreground_color_108.png\n- ic_launcher.png\n- ic_launcher_round.png",
+                "key": "customIcon",
+                "title": "Custom icon",
+                "description": "Folder with images to use as a custom icon.\n\nThe folder must contain one or more of the following folders, depending on the DPI of the device:\n- mipmap-mdpi\n- mipmap-hdpi\n- mipmap-xhdpi\n- mipmap-xxhdpi\n- mipmap-xxxhdpi\n\nEach of the folders must contain all of the following files:\nrevanced_adaptive_background_custom.png\nrevanced_adaptive_foreground_custom.png\n\nOptionally, the path can contain a 'drawable' folder with the monochrome icon file:\nrevanced_adaptive_monochrome_custom.xml",
                 "required": false,
                 "type": "kotlin.String",
-                "default": "ReVanced*Logo",
-                "values": {
-                    "ReVanced Logo": "ReVanced*Logo"
-                }
+                "default": null,
+                "values": null
             }
         ]
     },
@@ -3589,6 +3742,7 @@
         "use": true,
         "dependencies": [
             "BytecodePatch",
+            "ResourcePatch",
             "ResourcePatch"
         ],
         "compatiblePackages": {
@@ -4388,7 +4542,7 @@
     },
     {
         "name": "Sanitize sharing links",
-        "description": "Adds an option to remove the tracking query parameter from shared links.",
+        "description": "Removes the tracking query parameters from shared links.",
         "use": true,
         "dependencies": [
             "BytecodePatch",
@@ -4467,7 +4621,7 @@
     },
     {
         "name": "Video quality",
-        "description": "Adds options to use the advanced video quality menu, set default video qualities, and disable video codecs such as VP9/HDR.",
+        "description": "Adds options to set default video qualities and always use the advanced video quality menu.",
         "use": true,
         "dependencies": [
             "BytecodePatch",
