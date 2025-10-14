@@ -1362,6 +1362,16 @@
         "options": []
     },
     {
+        "name": "Hide suggested content",
+        "description": "Hides suggested stories, reels, threads and survey from feed (Suggested posts will still be shown).",
+        "use": false,
+        "dependencies": [],
+        "compatiblePackages": {
+            "com.instagram.android": null
+        },
+        "options": []
+    },
+    {
         "name": "Enable developer menu",
         "description": "Enables the developer menu, which can be found at the bottom of settings menu with name 'Internal Settings'.\n\nIt is recommended to use this patch with an alpha/beta Instagram release. Patching a stable release works, but the developer menu shows the developer flags as numbers and does not show a human readable description.",
         "use": false,
@@ -1393,7 +1403,17 @@
         "compatiblePackages": {
             "com.instagram.android": null
         },
-        "options": []
+        "options": [
+            {
+                "key": "domainName",
+                "title": "Domain name",
+                "description": "The domain name to use when sharing links.",
+                "required": false,
+                "type": "kotlin.String",
+                "default": "imginn.com",
+                "values": null
+            }
+        ]
     },
     {
         "name": "Sanitize sharing links",
@@ -1599,6 +1619,8 @@
         "use": true,
         "dependencies": [
             "BytecodePatch",
+            "BytecodePatch",
+            "ResourcePatch",
             "ResourcePatch",
             "BytecodePatch"
         ],
@@ -1621,7 +1643,7 @@
             {
                 "key": "customIcon",
                 "title": "Custom icon",
-                "description": "Folder with images to use as a custom icon.\n\nThe folder must contain one or more of the following folders, depending on the DPI of the device:\n- mipmap-mdpi\n- mipmap-hdpi\n- mipmap-xhdpi\n- mipmap-xxhdpi\n- mipmap-xxxhdpi\n\nEach of the folders must contain all of the following files:\nrevanced_adaptive_background_custom.png\nrevanced_adaptive_foreground_custom.png\n\nOptionally, the path can contain a 'drawable' folder with the monochrome icon file:\nrevanced_adaptive_monochrome_custom.xml",
+                "description": "Folder with images to use as a custom icon.\n\nThe folder must contain one or more of the following folders, depending on the DPI of the device:\n- mipmap-mdpi\n- mipmap-hdpi\n- mipmap-xhdpi\n- mipmap-xxhdpi\n- mipmap-xxxhdpi\n\nEach of the folders must contain all of the following files:\nrevanced_adaptive_background_custom.png\nrevanced_adaptive_foreground_custom.png\n\nOptionally, the path contains a 'drawable' folder with any of the monochrome icon files:\nrevanced_adaptive_monochrome_custom.xml\nrevanced_notification_icon_custom.xml",
                 "required": false,
                 "type": "kotlin.String",
                 "default": null,
@@ -3281,17 +3303,7 @@
                 "10.86.0-release.0"
             ]
         },
-        "options": [
-            {
-                "key": "domainName",
-                "title": "Domain name",
-                "description": "The domain name to use when sharing links.",
-                "required": true,
-                "type": "kotlin.String",
-                "default": "fxtwitter.com",
-                "values": null
-            }
-        ]
+        "options": []
     },
     {
         "name": "Sanitize sharing links",
@@ -3597,6 +3609,7 @@
         "dependencies": [
             "BytecodePatch",
             "ResourcePatch",
+            "ResourcePatch",
             "BytecodePatch"
         ],
         "compatiblePackages": {
@@ -3620,7 +3633,7 @@
             {
                 "key": "customIcon",
                 "title": "Custom icon",
-                "description": "Folder with images to use as a custom icon.\n\nThe folder must contain one or more of the following folders, depending on the DPI of the device:\n- mipmap-mdpi\n- mipmap-hdpi\n- mipmap-xhdpi\n- mipmap-xxhdpi\n- mipmap-xxxhdpi\n\nEach of the folders must contain all of the following files:\nrevanced_adaptive_background_custom.png\nrevanced_adaptive_foreground_custom.png\n\nOptionally, the path can contain a 'drawable' folder with the monochrome icon file:\nrevanced_adaptive_monochrome_custom.xml",
+                "description": "Folder with images to use as a custom icon.\n\nThe folder must contain one or more of the following folders, depending on the DPI of the device:\n- mipmap-mdpi\n- mipmap-hdpi\n- mipmap-xhdpi\n- mipmap-xxhdpi\n- mipmap-xxxhdpi\n\nEach of the folders must contain all of the following files:\nrevanced_adaptive_background_custom.png\nrevanced_adaptive_foreground_custom.png\n\nOptionally, the path contains a 'drawable' folder with any of the monochrome icon files:\nrevanced_adaptive_monochrome_custom.xml\nrevanced_notification_icon_custom.xml",
                 "required": false,
                 "type": "kotlin.String",
                 "default": null,
